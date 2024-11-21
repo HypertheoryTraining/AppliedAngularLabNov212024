@@ -60,8 +60,12 @@ export class NavBarComponent implements OnInit {
       text: 'Counter',
     },
     {
-      path:'books',
-      text: 'Books'
+      path: 'counter-rukun',
+      text: 'Counter Rukun',
+    },
+    {
+      path: 'books',
+      text: 'Books',
     },
 
     {
