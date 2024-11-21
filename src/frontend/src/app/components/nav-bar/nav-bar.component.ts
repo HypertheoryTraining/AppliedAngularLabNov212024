@@ -56,10 +56,13 @@ export class NavBarComponent implements OnInit {
       featureGated: 'atm',
     },
     {
-      path: 'books',
       text: 'Books',
+      path: 'books',
     },
-
+    {
+      text: 'Counter',
+      path: 'counter',
+    },
     {
       text: 'About Us',
       path: 'about',

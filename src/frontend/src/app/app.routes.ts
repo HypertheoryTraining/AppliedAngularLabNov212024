@@ -28,6 +28,11 @@ export const routes: Routes = [
       import('./features/books/books.routes').then((r) => r.BOOKS_ROUTES),
   },
   {
+    path: 'counter',
+    loadChildren: () =>
+      import('./features/counter/counter.routes').then((r) => r.COUNTER_ROUTES),
+  },
+  {
     path: '**',
     redirectTo: 'home',
   },
