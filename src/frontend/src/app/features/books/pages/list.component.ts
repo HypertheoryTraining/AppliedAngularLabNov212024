@@ -10,10 +10,10 @@ import { BooksStore } from '../services/books.store';
       <!-- head -->
       <thead>
         <tr>
-          <th (click)="store.setSortBy('id')">Id</th>
-          <th (click)="store.setSortBy('title')">Title</th>
-          <th (click)="store.setSortBy('author')">Author</th>
-          <th (click)="store.setSortBy('year')">Year</th>
+          <th (click)="store.toggleSort('id')">Id</th>
+          <th (click)="store.toggleSort('title')">Title</th>
+          <th (click)="store.toggleSort('author')">Author</th>
+          <th (click)="store.toggleSort('year')">Year</th>
         </tr>
       </thead>
       <tbody>

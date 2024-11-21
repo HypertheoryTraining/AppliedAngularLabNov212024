@@ -35,7 +35,19 @@ export const BooksStore = signalStore(
         ),
       ),
 
-      setSortBy: (column: BookListColumn) => {
+      setSortByOption: (sortBy: SortByOption) => {
+        patchState(store, sortBy);
+      },
+
+      setSortByColumn: (column: BookListColumn) => {
+        patchState(store, { column });
+      },
+
+      setSortByDirection: (direction: SortDirection) => {
+        patchState(store, { direction });
+      },
+
+      toggleSort: (column: BookListColumn) => {
         const changingColumns = column != store.column();
         if (changingColumns) {
           patchState(store, { column, direction: 'asc' });
