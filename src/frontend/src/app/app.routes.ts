@@ -22,15 +22,16 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./features/atm/atm.routes').then((r) => r.ATM_ROUTES),
   },
-  {
-    path: 'counter',
-    loadChildren: () =>
-      import('./features/counter/counter.routes').then((r) => r.COUNTER_ROUTES),
-  },
     {
     path: 'books',
     loadChildren: () =>
       import('./features/books/books.routes').then((r) => r.BOOKS_ROUTES),
+  },
+  {
+    path: 'counter',
+    canMatch: [canMatchFeature('atm')],
+    loadChildren: () =>
+      import('./features/counter/counter.routes').then((r) => r.COUNTER_ROUTES),
   },
   {
     path: '**',

@@ -1,18 +1,18 @@
 import { Routes } from '@angular/router';
 import { CounterComponent } from './counter.component';
-import { UiComponent } from './pages/ui.component';
-import { PrefsComponent } from './pages/prefs.component';
-import { CounterStore } from './services/counter.store';
-import { PeopleStore } from '../gifts/services/people.store';
+import { CounterUIComponent } from './pages/ui.component';
+
 
 export const COUNTER_ROUTES: Routes = [
   {
     path: '',
     component: CounterComponent,
-    providers: [CounterStore],
     children: [
-      { path: 'ui', component: UiComponent },
-      { path: 'prefs', component: PrefsComponent },
-    ],
+        {
+          path: 'ui',
+          //canMatch: [canMatchFeature('people-table-trial')],
+          component: CounterUIComponent,
+        },
+    ]
   },
 ];
