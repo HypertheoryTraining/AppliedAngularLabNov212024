@@ -8,6 +8,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   template: `
     <div>
       <a routerLink="ui">UI</a>
+      <a routerLink="prefs">Prefs</a>
       <router-outlet />
     </div>
   `,
