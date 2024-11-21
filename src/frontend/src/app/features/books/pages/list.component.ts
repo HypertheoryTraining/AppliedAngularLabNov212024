@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { BooksStore } from '../services/books.store';
 import { TitleCasePipe } from '@angular/common';
 import { SortIconPipe } from '../pipes/sort-icon.pipe';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-books-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TitleCasePipe, SortIconPipe],
+  imports: [TitleCasePipe, SortIconPipe, RouterLink],
   template: `<div class="overflow-x-auto">
     <table class="table">
       <!-- head -->
@@ -34,7 +35,15 @@ import { SortIconPipe } from '../pipes/sort-icon.pipe';
         @for (book of store.sortedBooks(); track book.id) {
           <tr>
             @for (column of store.columns(); track column) {
-              <th>{{ book[column] }}</th>
+              @if (column === 'title') {
+                <th>
+                  <a routerLink="../details/{{ book.id }}">{{
+                    book[column]
+                  }}</a>
+                </th>
+              } @else {
+                <th>{{ book[column] }}</th>
+              }
             }
           </tr>
         }

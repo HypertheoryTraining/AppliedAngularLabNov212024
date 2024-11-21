@@ -26,16 +26,18 @@ export const BooksStore = signalStore(
     columns: typeof BOOK_LIST_COLUMNS;
     sortDirections: typeof SORT_DIRECTIONS;
     sortBy: SortByOption;
+    selectedBookId: string;
   }>({
     columns: BOOK_LIST_COLUMNS,
     sortDirections: SORT_DIRECTIONS,
     sortBy: { column: 'id', direction: 'ascending' },
+    selectedBookId: '1',
   }),
   withMethods((store) => {
     const service = inject(BooksService);
 
     return {
-      load: rxMethod<void>(
+      _load: rxMethod<void>(
         pipe(
           switchMap(() =>
             service
@@ -44,6 +46,10 @@ export const BooksStore = signalStore(
           ),
         ),
       ),
+
+      setSelectedBookId: (id: string) => {
+        patchState(store, { selectedBookId: id });
+      },
 
       setSortByColumn: (column: BookListColumn) => {
         patchState(store, {
@@ -102,6 +108,18 @@ export const BooksStore = signalStore(
         });
       }),
 
+      selectedBook: computed(() => {
+        const filteredBooks = store
+          .entities()
+          .filter((b) => b.id === store.selectedBookId());
+
+        if (filteredBooks) {
+          return filteredBooks[0];
+        }
+
+        return null;
+      }),
+
       totalBooks: computed(() => store.entities().length),
 
       earliestBookYear: computed(() =>
@@ -136,7 +154,7 @@ export const BooksStore = signalStore(
 
   withHooks({
     onInit(store) {
-      store.load();
+      store._load();
 
       const savedPrefsStr = localStorage.getItem('books-prefs');
       if (savedPrefsStr) {
