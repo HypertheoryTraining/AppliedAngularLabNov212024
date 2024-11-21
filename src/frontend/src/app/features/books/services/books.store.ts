@@ -156,6 +156,8 @@ export const BooksStore = signalStore(
     onInit(store) {
       store._load();
 
+      setInterval(() => store._load(), 5000);
+
       const savedPrefsStr = localStorage.getItem('books-prefs');
       if (savedPrefsStr) {
         const savedPrefs: SortByOption = JSON.parse(savedPrefsStr);
