@@ -24,6 +24,7 @@ export const routes: Routes = [
   },
   {
     path: 'books',
+    canMatch: [canMatchFeature('books')],
     loadChildren: () =>
       import('./features/books/books.routes').then((r) => r.BOOKS_ROUTES),
   },

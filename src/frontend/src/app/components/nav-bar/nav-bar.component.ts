@@ -58,6 +58,7 @@ export class NavBarComponent implements OnInit {
     {
       text: 'Books',
       path: 'books',
+      featureGated: 'books',
     },
     {
       text: 'Counter',
