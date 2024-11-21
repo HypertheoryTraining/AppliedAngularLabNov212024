@@ -1,5 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, ChangeDetectionStrategy, resource } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 export type BookEntity = {
   author: string;
@@ -16,10 +17,13 @@ export type BookEntity = {
 @Component({
   selector: 'app-books',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [JsonPipe],
+  imports: [JsonPipe, RouterLink, RouterOutlet],
   template: `
-
-
+    <div class="flex gap-8">
+        <a class="link" routerLink="list">List</a>
+        <a class="link" routerLink="stats">Stats</a>
+    </div>
+    <router-outlet/>
     <pre>{{ books.value() | json }}</pre>
   `,
   styles: ``,
