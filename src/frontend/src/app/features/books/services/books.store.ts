@@ -41,19 +41,35 @@ export const BooksStore = signalStore(
 
       setSortByColumn: (column: BookListColumn) => {
         patchState(store, { column });
+        saveToLocalStorage({
+          column: store.column(),
+          direction: store.direction(),
+        });
       },
 
       setSortByDirection: (direction: SortDirection) => {
         patchState(store, { direction });
+        saveToLocalStorage({
+          column: store.column(),
+          direction: store.direction(),
+        });
       },
 
       toggleSort: (column: BookListColumn) => {
         const changingColumns = column != store.column();
         if (changingColumns) {
           patchState(store, { column, direction: 'asc' });
+          saveToLocalStorage({
+            column: store.column(),
+            direction: store.direction(),
+          });
         } else {
           const direction = getNextDirection(store.direction());
           patchState(store, { column, direction });
+          saveToLocalStorage({
+            column: store.column(),
+            direction: store.direction(),
+          });
         }
       },
     };
@@ -124,6 +140,17 @@ export const BooksStore = signalStore(
   withHooks({
     onInit(store) {
       store.load();
+
+      const savedPrefsStr = localStorage.getItem('books-prefs');
+      if (savedPrefsStr) {
+        const savedPrefs: SortByOption = JSON.parse(savedPrefsStr);
+        patchState(store, savedPrefs);
+      } else {
+        saveToLocalStorage({
+          column: store.column(),
+          direction: store.direction(),
+        });
+      }
     },
   }),
 );
@@ -137,4 +164,8 @@ function getNextDirection(current: SortDirection): SortDirection {
     case 'none':
       return 'asc';
   }
+}
+
+function saveToLocalStorage(sortBy: SortByOption) {
+  localStorage.setItem('books-prefs', JSON.stringify(sortBy));
 }
