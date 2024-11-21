@@ -1,12 +1,15 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-counter',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [],
+  imports: [RouterLink, RouterOutlet],
   template: `
-    html
-    <div>Starting</div>
+    <div>
+      <a routerLink="ui">UI</a>
+      <router-outlet />
+    </div>
   `,
   styles: ``,
 })
