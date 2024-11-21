@@ -3,7 +3,6 @@ import { HomeComponent } from './pages/home.component';
 import { AboutComponent } from './pages/about.component';
 import { canMatchFeature } from './shared/feature-management/feature.guard';
 
-// routes are "modes" our application can be in.
 export const routes: Routes = [
   {
     path: 'home',
@@ -27,7 +26,7 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./features/counter/counter.routes').then((r) => r.COUNTER_ROUTES),
   },
-    {
+  {
     path: 'books',
     loadChildren: () =>
       import('./features/books/books.routes').then((r) => r.BOOKS_ROUTES),

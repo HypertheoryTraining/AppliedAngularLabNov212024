@@ -1,4 +1,4 @@
-import { JsonPipe } from '@angular/common';
+import { JsonPipe, CommonModule } from '@angular/common';
 import { Component, ChangeDetectionStrategy, resource } from '@angular/core';
 
 export type BookEntity = {
@@ -16,13 +16,17 @@ export type BookEntity = {
 @Component({
   selector: 'app-books',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [JsonPipe],
+  imports: [CommonModule, JsonPipe],
   template: `
-
-
+    <h2>Books List</h2>
+    <ul>
+      <li *ngFor="let book of books.value()">
+        <strong>{{ book.title }}</strong> by {{ book.author }}
+      </li>
+    </ul>
     <pre>{{ books.value() | json }}</pre>
   `,
-  styles: ``,
+  styles: [],
 })
 export class BooksComponent {
   books = resource<BookEntity[], unknown>({
