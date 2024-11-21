@@ -11,7 +11,7 @@ Create an Angular component in that folder called `counter.component.ts`.
 In the template for this component, create a div that looks like this:
 
 ```html
-<div>Counter Stuff Goes Here</div>
+<div>Starting</div>
 ```
 
 All of the content you create for this feature should be inside this div.
