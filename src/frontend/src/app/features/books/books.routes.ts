@@ -4,12 +4,15 @@ import { canMatchFeature } from '../../shared';
 import { BooksListComponent } from './pages/list.component';
 import { BooksStatsComponent } from './pages/stats.component';
 import { BooksPrefsComponent } from './pages/prefs.component';
+import { BooksStore } from './services/books.store';
+import { BooksService } from './services/books.service';
 
 export const BOOKS_ROUTES: Routes = [
   {
     path: '',
     canMatch: [canMatchFeature('books')],
     component: BooksComponent,
+    providers: [BooksStore, BooksService],
     children: [
       {
         path: 'list',

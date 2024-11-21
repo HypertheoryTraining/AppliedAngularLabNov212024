@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { PeopleCreate, PeopleEntity } from '../types';
+import { PeopleCreate } from '../types';
 
 export type ApiResult = {
   people: PersonItem[];
