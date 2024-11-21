@@ -18,6 +18,14 @@ export const CounterStore = signalStore(
   withComputed((store) => {
     return {
       decrementDisabled: computed(() => store.current() === 0),
+      fizzBuzz: computed(() => {
+        const current = store.current();
+        if (current === 0) return '';
+        if (current % 3 === 0 && current % 5 === 0) return 'fizzBuzz';
+        if (current % 3 === 0) return 'fizz';
+        if (current % 5 === 0) return 'buzz';
+        return '';
+      }),
     };
   }),
 );
