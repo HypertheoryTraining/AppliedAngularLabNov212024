@@ -37,6 +37,9 @@ The URL should change to `http://localhost:4200/counter`.
 
 You should see `Counter Stuff Here` on the page.
 
+----------- Done --------
+step 2
+
 ## The Counter User Interface
 
 The `Counter` feature will have a new page that provides the user interface for our counter component.
@@ -61,6 +64,9 @@ The `Counter` feature will have a new page that provides the user interface for 
 You should be able to click on the `Counter` link in the navigation bar, and then click a link in the counter that shows our rough user interface for the counter component.
 
 In the Test Explorer (VS Code Extension), change the filter to `@playwright:@step-2` and run this test. If it passes, move on the the next step.
+
+---------- done --------
+step 3
 
 ## Counting
 
@@ -87,6 +93,9 @@ Disable the decrement button when clicking it would cause the current value to g
 
 Run the app and click increment and decrement. Try not to get too fixated on this, it is a bit addictive.
 
+-------- done ------
+step next
+
 ## FizzBuzz
 
 There is an old coding challenge called [FizzBuzz](https://en.wikipedia.org/wiki/Fizz_buzz#:~:text=Fizz%20buzz%20is%20a%20group,with%20the%20word%20%22fizzbuzz%22.).
@@ -97,7 +106,7 @@ Here are the rules:
 2. If a number is evenly divisible by 5, show the word 'Buzz'.
 3. If a number is evenly divisible by both 3 and 5, show 'FizzBuzz'.
 4. If none of those are true, show nothing.
-5. Is zero evenly divisible by 3, or 5? Too mathy for me. For our purposes, a value of zero should not return a fizzbuzz value.
+5. Is zero evenly divisible by 3, or 5? Too mathy for me. For our purposes, a value of zero should not return a fizzbuzz value. // here i change some values
 
 In the UI component, add an element with a `data-testid="fizzBuzz"`.
 
@@ -106,6 +115,9 @@ Write the code in your component to display in this element the values `Fizz`, `
 ### Check Your Work
 
 Is your component fizzbuzzing properly?
+
+--------- done --------
+next step
 
 ## Prefs (Advanced)
 
@@ -119,9 +131,12 @@ We want to allow the user the decide what they want the increment and decrement 
 
 1. Users can count by 1
 2. Users can count by 3
-3. Users can count by 5
+3. Users can count by 5 /// change value here
 
 When they change their preference on the `prefs` component and return to the `ui` component, it should increment and decrement by their preferred value.
+
+------ done ------
+step next
 
 ### Some Hints
 
@@ -138,3 +153,5 @@ They still should not be able to decrement below zero.
 Make it so that whenever the user changes what they are counting by, or they increment or decrement the counter, this is stored somewhere so that when they reload the page, it "remembers" their previous state.
 
 You could use an API for this, but to keep it simple, perhaps just store the values in the `localStorage` of the web browser.
+-------------- done ------------
+follow your video as reference to do the same / try to get it all done and also xtry to do FizzBuzzPrime numbers as well it's not done yet but try to get it all done Thnak you !! i have learn so many thing which i forgot / help me te get it all brush up :)

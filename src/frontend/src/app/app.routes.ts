@@ -27,10 +27,17 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./features/counter/counter.routes').then((r) => r.COUNTER_ROUTES),
   },
-    {
+  {
     path: 'books',
     loadChildren: () =>
       import('./features/books/books.routes').then((r) => r.BOOKS_ROUTES),
+  },
+  {
+    path: 'counter-lab',
+    loadChildren: () =>
+      import('./features/counter-lab/counter-lab.routes').then(
+        (r) => r.COUNTER_LAB_ROUTES,
+      ),
   },
   {
     path: '**',
