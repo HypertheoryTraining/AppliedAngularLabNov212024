@@ -11,8 +11,10 @@ import { setEntities, withEntities } from '@ngrx/signals/entities';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, switchMap, tap } from 'rxjs';
 import {
+  BOOK_LIST_COLUMNS,
   BookEntity,
   BookListColumn,
+  SORT_DIRECTIONS,
   SortByOption,
   SortDirection,
 } from '../types';
@@ -20,7 +22,15 @@ import { BooksService } from './books.service';
 
 export const BooksStore = signalStore(
   withEntities<BookEntity>(),
-  withState<SortByOption>({ column: 'id', direction: 'asc' }),
+  withState<{
+    columns: typeof BOOK_LIST_COLUMNS;
+    sortDirections: typeof SORT_DIRECTIONS;
+    sortBy: SortByOption;
+  }>({
+    columns: BOOK_LIST_COLUMNS,
+    sortDirections: SORT_DIRECTIONS,
+    sortBy: { column: 'id', direction: 'ascending' },
+  }),
   withMethods((store) => {
     const service = inject(BooksService);
 
@@ -35,41 +45,29 @@ export const BooksStore = signalStore(
         ),
       ),
 
-      setSortByOption: (sortBy: SortByOption) => {
-        patchState(store, sortBy);
-      },
-
       setSortByColumn: (column: BookListColumn) => {
-        patchState(store, { column });
-        saveToLocalStorage({
-          column: store.column(),
-          direction: store.direction(),
+        patchState(store, {
+          sortBy: { column, direction: store.sortBy().direction },
         });
+        saveToLocalStorage(store.sortBy());
       },
 
       setSortByDirection: (direction: SortDirection) => {
-        patchState(store, { direction });
-        saveToLocalStorage({
-          column: store.column(),
-          direction: store.direction(),
+        patchState(store, {
+          sortBy: { column: store.sortBy().column, direction },
         });
+        saveToLocalStorage(store.sortBy());
       },
 
       toggleSort: (column: BookListColumn) => {
-        const changingColumns = column != store.column();
+        const changingColumns = column != store.sortBy().column;
         if (changingColumns) {
-          patchState(store, { column, direction: 'asc' });
-          saveToLocalStorage({
-            column: store.column(),
-            direction: store.direction(),
-          });
+          patchState(store, { sortBy: { column, direction: 'ascending' } });
+          saveToLocalStorage(store.sortBy());
         } else {
-          const direction = getNextDirection(store.direction());
-          patchState(store, { column, direction });
-          saveToLocalStorage({
-            column: store.column(),
-            direction: store.direction(),
-          });
+          const direction = getNextDirection(store.sortBy().direction);
+          patchState(store, { sortBy: { column, direction } });
+          saveToLocalStorage(store.sortBy());
         }
       },
     };
@@ -79,15 +77,14 @@ export const BooksStore = signalStore(
     return {
       sortedBooks: computed(() => {
         const books = [...store.entities()];
-        const column = store.column();
-        const direction = store.direction();
+        const { column, direction } = store.sortBy();
 
         if (direction === 'none') {
           return books;
         }
 
         return books.sort((b1, b2) => {
-          const directionFactor = direction == 'asc' ? 1 : -1;
+          const directionFactor = direction == 'ascending' ? 1 : -1;
           switch (column) {
             case 'id':
             case 'year':
@@ -144,12 +141,9 @@ export const BooksStore = signalStore(
       const savedPrefsStr = localStorage.getItem('books-prefs');
       if (savedPrefsStr) {
         const savedPrefs: SortByOption = JSON.parse(savedPrefsStr);
-        patchState(store, savedPrefs);
+        patchState(store, { sortBy: savedPrefs });
       } else {
-        saveToLocalStorage({
-          column: store.column(),
-          direction: store.direction(),
-        });
+        saveToLocalStorage(store.sortBy());
       }
     },
   }),
@@ -157,12 +151,12 @@ export const BooksStore = signalStore(
 
 function getNextDirection(current: SortDirection): SortDirection {
   switch (current) {
-    case 'asc':
-      return 'desc';
-    case 'desc':
+    case 'ascending':
+      return 'descending';
+    case 'descending':
       return 'none';
     case 'none':
-      return 'asc';
+      return 'ascending';
   }
 }
 
