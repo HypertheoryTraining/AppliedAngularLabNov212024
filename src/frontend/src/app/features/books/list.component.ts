@@ -1,6 +1,5 @@
 import { JsonPipe, CommonModule } from "@angular/common";
 import { Component, ChangeDetectionStrategy, resource } from "@angular/core";
-import { RouterModule } from '@angular/router'; 
 
 export type BookEntity = {
   author: string;
@@ -15,30 +14,34 @@ export type BookEntity = {
 };
 
 @Component({
-  selector: 'app-books',
+  selector: 'app-book-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, JsonPipe, RouterModule], 
+  imports: [CommonModule, JsonPipe],
   template: `
-    <nav>
-      <a routerLink="list" routerLinkActive="active-link">Book List</a>
-      <a routerLink="stats" routerLinkActive="active-link">Book Stats</a>
-    </nav>
     <div class="overflow-x-auto">
-      <router-outlet></router-outlet>
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of books.value()">
+            <td>{{ book.id }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.year }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   `,
-  styles: [
-    `
-      nav {
-        margin-bottom: 10px;
-      }
-      .active-link {
-        font-weight: bold;
-      }
-    `
-  ],
+  styles: [],
 })
-export class BooksComponent {
+export class ListComponent {
   books = resource<BookEntity[], unknown>({
     loader: () =>
       fetch('/api/books')
