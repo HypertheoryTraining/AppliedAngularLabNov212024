@@ -40,6 +40,13 @@ export const routes: Routes = [
       import('./features/books/books.routes').then((r) => r.BOOKS_ROUTES),
   },
   {
+    path: 'books-rukun',
+    loadChildren: () =>
+      import('./features/books-rukun/books-rukun.routes').then(
+        (r) => r.BOOKS_ROUTES,
+      ),
+  },
+  {
     path: '**',
     redirectTo: 'home',
   },

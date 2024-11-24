@@ -67,7 +67,10 @@ export class NavBarComponent implements OnInit {
       path: 'books',
       text: 'Books',
     },
-
+    {
+      path: 'books-rukun',
+      text: 'Books Rukun',
+    },
     {
       text: 'About Us',
       path: 'about',
