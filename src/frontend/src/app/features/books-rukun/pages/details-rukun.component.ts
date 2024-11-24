@@ -33,12 +33,12 @@ export class DetailsRukunComponent {
   // books/details/938983
 
   store = inject(BookRukunStore);
-  id = input<string>();
-  debugger;
+  id = input.required<string>();
+
   constructor() {
     effect(() => {
       if (this.store.isFulfilled()) {
-        this.store.setSelectedBook(this.id() as string); // < 19 this wouldn't work.
+        this.store.setSelectedBook(this.id()); // < 19 this wouldn't work.
       }
     });
   }
