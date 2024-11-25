@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, ChangeDetectionStrategy, resource } from '@angular/core';
+import { Component, ChangeDetectionStrategy, resource, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 export type BookEntity = {
@@ -29,6 +29,8 @@ export type BookEntity = {
   styles: ``,
 })
 export class BooksComponent {
+
+  
   books = resource<BookEntity[], unknown>({
     loader: () =>
       fetch('/api/books')

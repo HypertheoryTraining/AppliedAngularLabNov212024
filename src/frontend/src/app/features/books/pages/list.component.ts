@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, resource } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, resource } from '@angular/core';
 import { BookEntity } from '../books.component';
+import { BookStore } from '../book.store';
 
 @Component({
   selector: 'app-list',
@@ -21,7 +22,7 @@ import { BookEntity } from '../books.component';
     </thead>
     <tbody>
   
-    @for (b of books.value(); track b.id;){
+    @for (b of store.entities(); track b.id;){
         <tr>
         <td>{{b.id}}</td>
         <td>{{b.title}}</td>
@@ -38,10 +39,12 @@ import { BookEntity } from '../books.component';
   styles: ``,
 })
 export class ListComponent {
-    books = resource<BookEntity[], unknown>({
-        loader: () =>
-          fetch('/api/books')
-            .then((res) => res.json())
-            .then((r) => r.data),
-      });
+
+    store = inject(BookStore);
+    // books = resource<BookEntity[], unknown>({
+    //     loader: () =>
+    //       fetch('/api/books')
+    //         .then((res) => res.json())
+    //         .then((r) => r.data),
+    //   });
 }
