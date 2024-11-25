@@ -16,9 +16,7 @@ export const BookStore = signalStore(
     return {
       load: rxMethod<void>(
         pipe(
-          //tap(() => patchState(store, setPending())),
           switchMap(() =>
-            // I only care about the last result. Throw any previous pending results away.
             service
               .getBooks()
               .pipe(
@@ -38,18 +36,12 @@ export const BookStore = signalStore(
        
         return [...serverBooks];
       }),
-    //   totalPeople: computed(() => store._serverPeopleEntities().length),
-    //   hasPeople: computed(() => 1),
-    //   totalLocal: computed(
-    //     () => store._serverPeopleEntities().filter((s) => s.isLocal).length,
-    //   ),
-
-    //   totalRemote: computed(
-    //     () =>
-    //       store._serverPeopleEntities().filter((s) => s.isLocal === false)
-    //         .length,
-    //   ),
-    //   totalPending: computed(() => store._tempPeopleIds().length),
+      totalBooks: computed(() => store._booksEntities().length),
+      earliestPublishedBook: computed(() => store._booksEntities().sort((a,b)=> (a.year - b.year)).at(0)),
+      recentPublishedBook: computed(() => store._booksEntities().sort((a,b)=> (b.year - a.year)).at(0)),
+      averageNoOfPages: computed(() => {
+        return store._booksEntities().map(b => b.pages).reduce((a,b) => a+b) / store._booksEntities().length ;
+      }),
     };
   }),
   withHooks({

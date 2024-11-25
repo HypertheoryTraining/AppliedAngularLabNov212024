@@ -17,19 +17,6 @@ export type ApiResult = {
 export class BookDataService {
   #http = inject(HttpClient);
 
-  // addPerson(
-  //   person: PeopleCreate,
-  //   temporaryId: string,
-  // ): Observable<{ person: PersonItem; temporaryId: string }> {
-  //   return this.#http.post<PersonItem>('/api/user/people', person).pipe(
-  //     map((r) => {
-  //       return {
-  //         person: r,
-  //         temporaryId,
-  //       };
-  //     }),
-  //   );
-  // }
   getBooks(): Observable<BookEntity[]> {
     return this.#http.get<ApiResult>('/api/books').pipe(
       map((r) => r.data), // ApiResult -> {id: string, name: string, isLocal: boolean}[]

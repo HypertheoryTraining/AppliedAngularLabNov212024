@@ -24,7 +24,7 @@ export type BookEntity = {
         <a class="link" routerLink="stats">Stats</a>
     </div>
     <router-outlet/>
-    <pre>{{ books.value() | json }}</pre>
+    
   `,
   styles: ``,
 })
